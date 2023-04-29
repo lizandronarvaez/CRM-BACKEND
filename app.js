@@ -21,7 +21,7 @@ _conecctionDatabase();
 // instancia express
 const app = express();
 // configuracion de cors
-const whiteList = [process.env.URL_FRONTEND];
+const whiteList = process.env.URL_FRONTEND;
 const corsOptions = {
     origin: (origin, callback) => {
         if (whiteList.includes(origin)) {
