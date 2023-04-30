@@ -20,20 +20,22 @@ _conecctionDatabase();
 
 // instancia express
 const app = express();
+app.use("/documentacion", swaggerUi.serve, swaggerUi.setup(swaggerJSDOC));
+
 // configuracion de cors
-const whiteList = [process.env.URL_FRONTEND];
-const corsOptions = {
-    origin: (origin, callback) => {
-        const urls = whiteList.some(url => url === origin);
-        if (urls) {
-            callback(null, true);
-        } else {
-            callback(new Error("Solicitud no permitida por cors"));
-        }
-    }
-};
+// const whiteList = [process.env.URL_FRONTEND];
+// const corsOptions = {
+//     origin: (origin, callback) => {
+//         const urls = whiteList.some(url => url === origin);
+//         if (urls) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error("Solicitud no permitida por cors"));
+//         }
+//     }
+// };
 // Uso de utilidades de expres
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 // leer datos de envio de formulario
 app.use(express.urlencoded({ extended: true }));
@@ -43,7 +45,6 @@ app.use("/users", routeUsuarios);
 app.use("/", routeClientes);
 app.use("/", routeProductos);
 app.use("/", routePedidos);
-app.use("/documentacion", swaggerUi.serve, swaggerUi.setup(swaggerJSDOC));
 // Archivos estaticos
 app.use(express.static("uploads"));
 // Configuracion para el servidor en produccion
