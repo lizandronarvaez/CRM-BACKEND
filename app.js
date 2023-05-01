@@ -20,7 +20,8 @@ _conecctionDatabase();
 
 // instancia express
 const app = express();
-app.use("/documentacion", swaggerUi.serve, swaggerUi.setup(swaggerJSDOC));
+// Archivos estaticos
+app.use(express.static("uploads"));
 
 // configuracion de cors
 const whiteList = [process.env.URL_FRONTEND];
@@ -45,8 +46,7 @@ app.use("/users", routeUsuarios);
 app.use("/", routeClientes);
 app.use("/", routeProductos);
 app.use("/", routePedidos);
-// Archivos estaticos
-app.use(express.static("uploads"));
+app.use("/documentacion", swaggerUi.serve, swaggerUi.setup(swaggerJSDOC));
 // Configuracion para el servidor en produccion
 const HOST = process.env.HOST || "0.0.0.0";
 const PORT = process.env.PORT || 5000;
