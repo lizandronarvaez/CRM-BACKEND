@@ -12,6 +12,10 @@ import cors from "cors";
 // Documentacion
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDOC from "./source/docs/api-docs.js";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 // env
 config({ path: "config.env" });
 
@@ -21,8 +25,7 @@ _conecctionDatabase();
 // instancia express
 const app = express();
 // Archivos estaticos
-app.use(express.static("uploads"));
-
+app.use(express.static(__dirname + "/uploads"));
 // configuracion de cors
 const whiteList = [process.env.URL_FRONTEND];
 const corsOptions = {
