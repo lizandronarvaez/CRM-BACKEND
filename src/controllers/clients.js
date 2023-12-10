@@ -9,7 +9,7 @@ import {
     clientDelete
 } from "../services/clientService";
 // Verifiacion de token
-import { isValidToken } from "../middlewares/isValidToken.js";
+import { isValidToken } from "../middlewares/isValidToken";
 // instancia de express.router
 const route = express.Router();
 // rutas

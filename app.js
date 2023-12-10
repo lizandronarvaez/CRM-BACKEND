@@ -13,7 +13,7 @@ import cors from "cors";
 // Documentacion
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { conecctionDB } from "./src/db/connectionDB.js";
+import { conecctionDB } from "./src/db/connectionDB";
 
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDOC from "./src/docs/api-docs.js";
