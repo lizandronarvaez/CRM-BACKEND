@@ -1,29 +1,26 @@
 import express from "express";
-// Database
-import _conecctionDatabase from "./source/db/db_connection.js";
 // importacion de las rutas de express
 import {
-    routeClientes,
-    routePedidos,
-    routeProductos,
-    routeUsuarios
-} from "./source/controllers/index.js";
+    routeClients,
+    routeOrders,
+    routeProducts,
+    routeUsers
+} from "./src/controllers/index";
 
 // Utilidades
 import { config } from "dotenv";
 import cors from "cors";
 // Documentacion
-import swaggerUi from "swagger-ui-express";
-import swaggerJSDOC from "./source/docs/api-docs.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { conecctionDB } from "./src/db/connectionDB.js";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerJSDOC from "./src/docs/api-docs.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // env
 config({ path: "config.env" });
 
-// Conection ala base de datos
-_conecctionDatabase();
 // instancia express
 const app = express();
 // Archivos estaticos
@@ -47,10 +44,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas que utiliremos
-app.use("/users", routeUsuarios);
-app.use("/", routeClientes);
-app.use("/", routeProductos);
-app.use("/", routePedidos);
+app.use("/auth", routeUsers);
+app.use("/clients", routeClients);
+app.use("/products", routeProducts);
+app.use("/orders", routeOrders);
 app.use("/documentacion", swaggerUi.serve, swaggerUi.setup(swaggerJSDOC));
 // Configuracion para el servidor en produccion
 const HOST = process.env.HOST || "0.0.0.0";
@@ -58,5 +55,7 @@ const PORT = process.env.PORT || 5000;
 // // instancia del puerto y escucha
 
 app.listen(PORT, HOST, () => {
+    // La base de datos se levanta cuando el servidor se levante
+    conecctionDB();
     console.log(`Servidor funcionando en el puerto ${process.env.PORT}`);
 });
