@@ -1,5 +1,5 @@
-import { Products } from "../models/index.js";
-import upload from "../middlewares/multer.js";
+import { Products } from "../models/index";
+import upload from "../middlewares/multer";
 
 // Subir imagen para crear un archivo
 export const uploadFile = (req, res, next) => {

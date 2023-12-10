@@ -1,10 +1,10 @@
 import express from "express";
 import {
     routeClients,
-    routeOrders,
     routeProducts,
+    routeOrders,
     routeUsers
-} from "./src/controllers/index";
+} from "./src/controllers/index.js";
 import { config } from "dotenv";
 import cors from "cors";
 // Documentacion
