@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js",
+    "dev": "node --watch --es-module-specifier-resolution=node  app.js",
     "test": "jest"
   },
   "author": "Lizandro Narvaez",
