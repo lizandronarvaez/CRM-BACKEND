@@ -12,10 +12,10 @@ import { isValidToken } from "../middlewares/isValidToken.js";
 const route = express.Router();
 // rutas
 route
-    .post("/clientes", isValidToken, clientCreate)
-    .get("/clientes", isValidToken, getAllClients)
-    .get("/clientes/:_id", isValidToken, getClientBy)
-    .put("/clientes/:_id", isValidToken, clientUpdate)
-    .delete("/clientes/:_id", clientDelete);
+    .post("/", isValidToken, clientCreate)
+    .get("/", isValidToken, getAllClients)
+    .get("/:_id", isValidToken, getClientBy)
+    .put("/:_id", isValidToken, clientUpdate)
+    .delete("/:_id", clientDelete);
 
 export default route;
