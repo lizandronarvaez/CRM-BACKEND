@@ -3,7 +3,7 @@ uploads/
 nota.js
 docker-compose.yml
 package-lock.json
-config.env
+.env
 dataMongoDB
 .vercel
 .gitignore

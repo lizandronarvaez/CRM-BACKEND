@@ -8,11 +8,14 @@ import {
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { conecctionDB } from "./src/db/connectionDB";
+
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDOC from "./src/docs/api-docs";
 import { getEnv } from "./src/helpers/getEnv.js";
+import { connectionDB } from "./src/db/connectionDB.js";
 
+// Conectar la base de datos
+connectionDB();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.static(__dirname + "/uploads"));
@@ -44,7 +47,5 @@ const { HOST: HOST_ENV, PORT: PORT_ENV } = getEnv();
 const HOST = HOST_ENV || "0.0.0.0";
 const PORT = PORT_ENV || 5000;
 app.listen(PORT, HOST, () => {
-    // La base de datos se levanta cuando el servidor se levante
-    conecctionDB();
     console.log(`Servidor funcionando en el puerto ${PORT}`);
 });

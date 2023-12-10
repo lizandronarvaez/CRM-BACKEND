@@ -3,7 +3,7 @@ import { getEnv } from "../helpers/getEnv";
 mongoose.Promise = global.Promise;
 const { DATABASE } = getEnv();
 
-export const conecctionDB = () => {
+export const connectionDB = () => {
     mongoose.set("strictQuery", "false");
     // Conexion ala base de datos
     try {
