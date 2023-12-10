@@ -1,6 +1,4 @@
 import express from "express";
-// Controladores de rutas
-
 import {
     clientCreate,
     getAllClients,
