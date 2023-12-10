@@ -6,7 +6,7 @@ import {
     eliminarCLiente,
     mostrarClientes,
     mostrarUnCliente
-} from "../services/clientesControllers.js";
+} from "../services/clientes.js";
 // Verifiacion de token
 import { isValidToken } from "../middlewares/isValidToken.js";
 // instancia de express.router

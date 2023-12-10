@@ -8,7 +8,7 @@ import {
     mostarProductos,
     mostrarPoducto,
     subirArchivo
-} from "../services/productosControllers.js";
+} from "../services/productos.js";
 // instancia de express.router
 const route = express.Router();
 route

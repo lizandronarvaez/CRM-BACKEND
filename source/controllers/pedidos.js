@@ -6,7 +6,7 @@ import {
     eliminarPedido,
     mostrarPedido,
     mostrarPedidos
-} from "../services/pedidosControllers.js";
+} from "../services/pedidos.js";
 // instancia de express.router
 const route = express.Router();
 route
