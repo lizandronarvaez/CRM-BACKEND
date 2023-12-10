@@ -10,7 +10,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 import swaggerUi from "swagger-ui-express";
-import swaggerJSDOC from "./src/docs/api-docs";
+import swaggerJSDOC from "./src/docs/api-docs.js";
 import { getEnv } from "./src/helpers/getEnv.js";
 import { connectionDB } from "./src/db/connectionDB.js";
 
