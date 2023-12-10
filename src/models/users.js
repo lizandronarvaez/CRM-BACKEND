@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 const { Schema } = mongoose;
 
-const usuariosSchema = new Schema({
+const usersSchema = new Schema({
     email: {
         type: String,
         unique: true,
@@ -10,7 +10,7 @@ const usuariosSchema = new Schema({
         required: true,
         lowercase: true
     },
-    nombre: {
+    fullname: {
         type: String,
         trim: true,
         required: true
@@ -22,7 +22,7 @@ const usuariosSchema = new Schema({
     }
 });
 // Encriptar la contraseña
-usuariosSchema.pre("save", async function (next) {
+usersSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         return next();
     }
@@ -31,9 +31,9 @@ usuariosSchema.pre("save", async function (next) {
 });
 
 // comprobar la contraseña
-usuariosSchema.methods = {
+usersSchema.methods = {
     comparePassword: function (password) {
         return bcrypt.compareSync(password, this.password);
     }
 };
-export default mongoose.model("Usuarios", usuariosSchema);
+export default mongoose.model("Usuarios", usersSchema);

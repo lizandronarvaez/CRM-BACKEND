@@ -1,11 +1,11 @@
-import Clientes from "../models/clientes.js";
+import { Clients } from "../models";
 
-export const crearCliente = async (req, res, next) => {
+export const clientCreate = async (req, res, next) => {
     const { body } = req;
-    const cliente = new Clientes(body);
+    const client = new Clients(body);
     try {
         // Almacena el registro
-        await cliente.save();
+        await client.save();
         res.status(201).json({ mensaje: "Cliente creado correctamente" });
     } catch (error) {
         if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
@@ -18,31 +18,31 @@ export const crearCliente = async (req, res, next) => {
 };
 
 // Mostrar todos los clientes
-export const mostrarClientes = async (req, res, next) => {
+export const getAllClients = async (req, res, next) => {
     try {
         // Busca todos los clientes
-        const clientes = await Clientes.find();
-        res.status(200).json(clientes);
+        const clients = await Clients.find();
+        res.status(200).json(clients);
     } catch (error) {
         next();
     }
 };
 
 // Mostrar un solo cliente
-export const mostrarUnCliente = async (req, res, next) => {
+export const getClientBy = async (req, res, next) => {
     const { _id } = req.params;
     try {
         // BUsca el cliente en la base de datos
-        const cliente = await Clientes.findById(_id);
+        const client = await Clients.findById(_id);
         // Comprueba que el cliente existe
-        if (!cliente) {
+        if (!client) {
             // Si no existe el cliente envia un json
             res.json({ mensaje: "Ese cliente no existe" });
             // Sigue al siguente middleware
             return next();
         }
         // Si el cliente existe, lo muestra
-        res.status(200).json(cliente);
+        res.status(200).json(client);
     } catch (error) {
         res.status(400).json(error.message);
         next();
@@ -50,13 +50,13 @@ export const mostrarUnCliente = async (req, res, next) => {
 };
 
 // Actualizar un cliente
-export const actualizarCliente = async (req, res, next) => {
+export const clientUpdate = async (req, res, next) => {
     // Leer el id para buscar el cliente
     const { params: { _id }, body } = req;
 
     try {
-        const cliente = await Clientes.findByIdAndUpdate({ _id }, body, { new: true });
-        res.status(200).json(cliente);
+        const client = await Clients.findByIdAndUpdate({ _id }, body, { new: true });
+        res.status(200).json(client);
     } catch (error) {
         res.status(400).json(error.message);
         next();
@@ -64,11 +64,11 @@ export const actualizarCliente = async (req, res, next) => {
 };
 
 // Eliminar un cliente
-export const eliminarCLiente = async (req, res, next) => {
+export const clientDelete = async (req, res, next) => {
     const { _id } = req.params;
 
     try {
-        await Clientes.findByIdAndDelete(_id);
+        await Clients.findByIdAndDelete(_id);
         res.status(204).json({ message: "Cliente eliminado correctamente" });
     } catch (error) {
         res.status(400).json({ message: "Hubo un error" });

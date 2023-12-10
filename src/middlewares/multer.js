@@ -1,13 +1,13 @@
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
-//
 import multer from "multer";
 import shortid from "shortid";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // Configuracion de multer
 const uploads = path.resolve(__dirname, "../../uploads");
 // En la configuracion de multer hay que ponerlo en orden ya que se ejecuta de arriba abajo
-const configuracionMulter = {
+const multerConfig = {
     limits: { fileSize: 100000 },
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -29,6 +29,6 @@ const configuracionMulter = {
         }
     }
 };
-const upload = multer(configuracionMulter).single("imagenProducto");
+const upload = multer(multerConfig).single("imagenProducto");
 
 export default upload;

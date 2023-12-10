@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 mongoose.Promise = global.Promise;
 
-const _conecctionDatabase = () => {
+export const conecctionDB = () => {
     const URI = process.env.DATABASE;
     mongoose.set("strictQuery", "false");
     // Conexion ala base de datos
@@ -17,5 +17,3 @@ const _conecctionDatabase = () => {
         console.log(error);
     }
 };
-
-export default _conecctionDatabase;

@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const PedidosSchema = new Schema({
-    cliente: {
+const ordersSchema = new Schema({
+    client: {
         type: Schema.ObjectId,
         ref: "Clientes"
     },
-    pedido: [{
+    order: [{
         producto: {
             type: Schema.ObjectId,
             ref: "Productos"
@@ -18,4 +18,4 @@ const PedidosSchema = new Schema({
     }
 });
 
-export default mongoose.model("Pedidos", PedidosSchema);
+export default mongoose.model("Pedidos", ordersSchema);
