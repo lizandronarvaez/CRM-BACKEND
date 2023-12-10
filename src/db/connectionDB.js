@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
+import { getEnv } from "../helpers/getEnv";
 mongoose.Promise = global.Promise;
+const { DATABASE } = getEnv();
 
 export const conecctionDB = () => {
-    const URI = process.env.DATABASE;
     mongoose.set("strictQuery", "false");
     // Conexion ala base de datos
     try {
-        mongoose.connect(URI,
+        mongoose.connect(DATABASE,
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
