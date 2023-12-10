@@ -1,7 +1,7 @@
-import Orders from "./orders";
-import Products from "./products";
-import Users from "./users";
-import Clients from "./clients";
+import Orders from "./orders.js";
+import Products from "./products.js";
+import Users from "./users.js";
+import Clients from "./clients.js";
 
 export {
     Orders,

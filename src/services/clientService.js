@@ -1,4 +1,4 @@
-import { Clients } from "../models";
+import { Clients } from "../models/index.js";
 
 export const clientCreate = async (req, res, next) => {
     const { body } = req;

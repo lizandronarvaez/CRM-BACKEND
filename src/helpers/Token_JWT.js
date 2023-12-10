@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { getEnv } from "./getEnv";
+import { getEnv } from "./getEnv.js";
 const { TOKEN_SECRET } = getEnv();
 
 // Firmar y generar el token

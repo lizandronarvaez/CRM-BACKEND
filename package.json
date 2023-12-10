@@ -8,7 +8,7 @@
     "node": ">=16.20.1"
   },
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node app.js",
+    "start": "node app.js",
     "dev": "node  --es-module-specifier-resolution=node --watch app.js",
     "test": "jest"
   },
