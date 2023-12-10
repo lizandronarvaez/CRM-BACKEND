@@ -41,7 +41,7 @@ const corsOptions = {
     }
 };
 // Uso de utilidades de expres
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 // leer datos de envio de formulario
 app.use(express.urlencoded({ extended: true }));
