@@ -11,11 +11,8 @@ import { fileURLToPath } from "url";
 
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDOC from "./src/docs/api-docs.js";
-import { getEnv } from "./src/helpers/getEnv.js";
+import { getEnv } from "./src/helpers/getEnv";
 import { connectionDB } from "./src/db/connectionDB.js";
-
-// Conectar la base de datos
-connectionDB();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.static(__dirname + "/uploads"));
@@ -47,5 +44,7 @@ const { HOST: HOST_ENV, PORT: PORT_ENV } = getEnv();
 const HOST = HOST_ENV || "0.0.0.0";
 const PORT = PORT_ENV || 5000;
 app.listen(PORT, HOST, () => {
+    // Conectar la base de datos
+    connectionDB();
     console.log(`Servidor funcionando en el puerto ${PORT}`);
 });
