@@ -1,7 +1,7 @@
 import tokenJWT from "../helpers/Token_JWT.js";
 
 // Verificar que existe el token en la cabcera
-const authHeader = async (req, res, next) => {
+export const isValidToken = async (req, res, next) => {
     // Comprueba que el token existe
     const autorization = req.get("Authorization");
 
@@ -14,13 +14,8 @@ const authHeader = async (req, res, next) => {
     const token = autorization.split(" ").pop();
     const tokenJust = tokenJWT.verifyToken(token);
     // Si el token tiene el formato correcto pero tiene algun error
-    if (!tokenJust) {
-        res.status(401).json("No estas autorizado, vuelve a intentarlo");
-    }
+    if (!tokenJust) res.status(401).json("No estas autorizado,vuelve a intentarlo");
+
     // Si el token tiene el formato correcto y es valido
     next();
-};
-
-export default {
-    authHeader
 };
