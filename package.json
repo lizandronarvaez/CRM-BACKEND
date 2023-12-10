@@ -4,9 +4,12 @@
   "description": "node,mongo,rest-api",
   "main": "app.js",
   "type": "module",
+  "engines": {
+    "node": ">=16.20.1"
+  },
   "scripts": {
     "start": "node --es-module-specifier-resolution=node app.js",
-    "dev": "node --watch --es-module-specifier-resolution=node  app.js",
+    "dev": "node  --es-module-specifier-resolution=node --watch app.js",
     "test": "jest"
   },
   "author": "Lizandro Narvaez",
