@@ -10,10 +10,10 @@ import {
 // instancia de express.router
 const route = express.Router();
 route
-    .post("/pedidos/nuevo/:_id", isValidToken, orderCreate)
-    .get("/pedidos", isValidToken, getAllOrders)
-    .get("/pedidos/:_id", isValidToken, getOrderBy)
-    .put("/pedidos/:_id", isValidToken, orderUpdate)
-    .delete("/pedidos/:_id", isValidToken, orderDelete);
+    .post("/:_id", isValidToken, orderCreate)
+    .get("/", isValidToken, getAllOrders)
+    .get("/:_id", isValidToken, getOrderBy)
+    .put("/:_id", isValidToken, orderUpdate)
+    .delete("/:_id", isValidToken, orderDelete);
 
 export default route;
