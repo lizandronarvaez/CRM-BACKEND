@@ -7,12 +7,12 @@ import {
 } from "./src/controllers/index.js";
 import { config } from "dotenv";
 import cors from "cors";
-// Documentacion
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { conecctionDB } from "./src/db/connectionDB";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDOC from "./src/docs/api-docs.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 config({ path: "config.env" });
 const app = express();
