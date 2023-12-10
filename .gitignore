@@ -6,3 +6,4 @@ package-lock.json
 config.env
 dataMongoDB
 .vercel
+.gitignore
