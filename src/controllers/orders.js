@@ -1,5 +1,5 @@
 import express from "express";
-import { isValidToken } from "../middlewares/isValidToken";
+import { isValidToken } from "../middlewares/isValidToken.js";
 import {
     orderCreate,
     getAllOrders,

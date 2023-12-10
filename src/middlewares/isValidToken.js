@@ -1,4 +1,4 @@
-import { verifyToken } from "../helpers/Token_JWT";
+import { verifyToken } from "../helpers/Token_JWT.js";
 
 // Verificar que existe el token en la cabcera
 export const isValidToken = async (req, res, next) => {

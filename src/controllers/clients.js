@@ -5,9 +5,9 @@ import {
     getClientBy,
     clientUpdate,
     clientDelete
-} from "../services/clientService";
+} from "../services/clientService.js";
 // Verifiacion de token
-import { isValidToken } from "../middlewares/isValidToken";
+import { isValidToken } from "../middlewares/isValidToken.js";
 // instancia de express.router
 const route = express.Router();
 // rutas

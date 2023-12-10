@@ -1,5 +1,5 @@
-import { tokenSign } from "../helpers/Token_JWT";
-import { Users } from "../models";
+import { tokenSign } from "../helpers/Token_JWT.js";
+import { Users } from "../models/index.js";
 // CONTROLADOR registrar usuario
 export const registerUser = async (req, res) => {
     const user = new Users(req.body);

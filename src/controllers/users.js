@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser } from "../services/userService";
+import { registerUser, loginUser } from "../services/userService.js";
 // instancia de express.router
 const route = express.Router();
 // Rutas usuarios

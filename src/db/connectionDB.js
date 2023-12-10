@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getEnv } from "../helpers/getEnv";
+import { getEnv } from "../helpers/getEnv.js";
 mongoose.Promise = global.Promise;
 const { DATABASE } = getEnv();
 

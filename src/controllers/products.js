@@ -1,5 +1,5 @@
 import express from "express";
-import { isValidToken } from "../middlewares/isValidToken";
+import { isValidToken } from "../middlewares/isValidToken.js";
 import {
     productsCreate,
     productsGetAll,
@@ -8,7 +8,7 @@ import {
     productDelete,
     getAllsProductQuery,
     uploadFile
-} from "../services/productService";
+} from "../services/productService.js";
 // instancia de express.router
 const route = express.Router();
 route

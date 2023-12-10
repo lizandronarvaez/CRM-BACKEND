@@ -1,7 +1,7 @@
-import routeClients from "./clients";
-import routeProducts from "./products";
-import routeOrders from "./orders";
-import routeUsers from "./users";
+import routeClients from "./clients.js";
+import routeProducts from "./products.js";
+import routeOrders from "./orders.js";
+import routeUsers from "./users.js";
 
 export {
     routeClients,
