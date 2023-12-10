@@ -2,10 +2,13 @@ import express from "express";
 // Database
 import _conecctionDatabase from "./source/db/db_connection.js";
 // importacion de las rutas de express
-import routeClientes from "./source/routes/clientes.js";
-import routeProductos from "./source/routes/productos.js";
-import routePedidos from "./source/routes/pedidos.js";
-import routeUsuarios from "./source/routes/usuarios.js";
+import {
+    routeClientes,
+    routePedidos,
+    routeProductos,
+    routeUsuarios
+} from "./source/controllers/index.js";
+
 // Utilidades
 import { config } from "dotenv";
 import cors from "cors";
@@ -21,13 +24,12 @@ config({ path: "config.env" });
 
 // Conection ala base de datos
 _conecctionDatabase();
-
 // instancia express
 const app = express();
 // Archivos estaticos
 app.use(express.static(__dirname + "/uploads"));
 // configuracion de cors
-const whiteList = [process.env.URL_FRONTEND];
+const whiteList = [process.env.URL_FRONTEND, process.env.URL_TESTING];
 const corsOptions = {
     origin: (origin, callback) => {
         const urls = whiteList.some(url => url === origin);
