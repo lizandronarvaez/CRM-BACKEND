@@ -5,16 +5,15 @@ import {
     routeOrders,
     routeUsers
 } from "./src/controllers/index.js";
-import { config } from "dotenv";
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { conecctionDB } from "./src/db/connectionDB";
 import swaggerUi from "swagger-ui-express";
-import swaggerJSDOC from "./src/docs/api-docs.js";
+import swaggerJSDOC from "./src/docs/api-docs";
+import { getEnv } from "./src/helpers/getEnv.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-config({ path: "config.env" });
 const app = express();
 app.use(express.static(__dirname + "/uploads"));
 // configuracion de cors
@@ -41,10 +40,11 @@ app.use("/products", routeProducts);
 app.use("/orders", routeOrders);
 app.use("/documentacion", swaggerUi.serve, swaggerUi.setup(swaggerJSDOC));
 // Configuracion para el servidor en produccion
-const HOST = process.env.HOST || "0.0.0.0";
-const PORT = process.env.PORT || 5000;
+const { HOST: HOST_ENV, PORT: PORT_ENV } = getEnv();
+const HOST = HOST_ENV || "0.0.0.0";
+const PORT = PORT_ENV || 5000;
 app.listen(PORT, HOST, () => {
     // La base de datos se levanta cuando el servidor se levante
     conecctionDB();
-    console.log(`Servidor funcionando en el puerto ${process.env.PORT}`);
+    console.log(`Servidor funcionando en el puerto ${PORT}`);
 });
