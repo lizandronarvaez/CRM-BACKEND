@@ -1,11 +1,13 @@
 import { Products } from "../models/index.js";
 import upload from "../middlewares/multer.js";
 
-// Subir imagen para crear un archivo
 export const uploadFile = (req, res, next) => {
     upload(req, res, function (error) {
-        if (error) res.json(error.message);
-        next();
+        if (error) {
+            res.json(error.message);
+        } else {
+            next();
+        }
     });
 };
 
@@ -13,15 +15,15 @@ export const productsCreate = async (req, res, next) => {
     const { body, file } = req;
     const product = new Products(body);
     try {
-        if (file) product.imagenProducto = file.filename;
+        if (file) product.productImage = file.filename;
         // Guardamos el producto
         await product.save();
         // Devolvemos con un stado de que se ha creado correctamente
-        res.status(201).json({ mensaje: "Se agrego un nuevo producto correctamente" });
+        res.status(201).json({ message: "Se agrego un nuevo producto correctamente", ok: true });
     } catch (error) {
         res.status(400).json(error.message);
-        next();
     }
+    next();
 };
 
 export const productsGetAll = async (req, res, next) => {
@@ -38,14 +40,15 @@ export const productsGetAll = async (req, res, next) => {
 
 export const productGetBy = async (req, res, next) => {
     const { _id } = req.params;
-    // Busca el producto con el id que pasaremos por parametro
     const product = await Products.findById(_id);
-
-    // Si existe el producto lo mostrara
-    if (product) res.status(200).json(product);
-
-    res.status(400).json({ mensaje: "No existe el producto" });
-    return next();
+    try {
+        if (!product) {
+            res.status(400).json({ message: "No existe el producto" });
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
 export const productUpdate = async (req, res, next) => {
@@ -60,8 +63,8 @@ export const productUpdate = async (req, res, next) => {
         const productNow = await Products.findById(_id);
         newProduct.productImage = productNow.productImage;
 
-        const updatedProduct = await Products.findByIdAndUpdate(_id, newProduct, { new: true });
-        res.status(200).json({ actualizarProducto: updatedProduct, message: "Producto actualizado correctamente" });
+        await Products.findByIdAndUpdate(_id, newProduct, { new: true });
+        res.status(200).json({ ok: true, message: "Producto actualizado correctamente" });
     } catch (error) {
         res.status(400).json(error.message);
         next();
