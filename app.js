@@ -15,7 +15,7 @@ import { getEnv } from "./src/helpers/getEnv.js";
 import { connectionDB } from "./src/db/connectionDB.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-app.use(express.static(__dirname + "/uploads"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 // configuracion de cors
 const whiteList = [process.env.URL_FRONTEND, process.env.URL_TESTING];
 const corsOptions = {
