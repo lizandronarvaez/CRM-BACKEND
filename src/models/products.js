@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const productsSchemas = new Schema({
-    name: {
+    fullname: {
+        type: String,
+        trim: true
+    },
+    brand: {
         type: String,
         trim: true
     },
@@ -11,6 +15,9 @@ const productsSchemas = new Schema({
     },
     productImage: {
         type: String
+    },
+    stock: {
+        type: Number
     }
 });
 
