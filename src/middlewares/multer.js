@@ -29,6 +29,6 @@ const multerConfig = {
         }
     }
 };
-const upload = multer(multerConfig).single("imagenProducto");
+const upload = multer(multerConfig).single("productImage");
 
 export default upload;
