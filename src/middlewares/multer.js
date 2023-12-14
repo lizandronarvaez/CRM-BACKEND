@@ -5,7 +5,7 @@ import shortid from "shortid";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // Configuracion de multer
-const uploads = path.resolve(__dirname, "../../uploads");
+const uploads = path.resolve(__dirname, "../public/uploads");
 // En la configuracion de multer hay que ponerlo en orden ya que se ejecuta de arriba abajo
 const multerConfig = {
     limits: { fileSize: 100000 },

@@ -1,5 +1,4 @@
-node_modules/
-uploads/
+node_modules
 nota.js
 docker-compose.yml
 package-lock.json
