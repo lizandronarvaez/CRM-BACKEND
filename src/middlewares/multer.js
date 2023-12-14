@@ -1,34 +1,36 @@
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import multer from "multer";
-import shortid from "shortid";
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
-// Configuracion de multer
 const uploads = path.resolve(__dirname, "../../uploads");
-// En la configuracion de multer hay que ponerlo en orden ya que se ejecuta de arriba abajo
+
+const mimetypes = ["image/jpeg", "image/png", "image/webp"];
 const multerConfig = {
-    limits: { fileSize: 100000 },
+    limits: { fileSize: 1000000 },
     storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, uploads);
-        },
+        destination: (req, file, cb) => cb(null, uploads),
         filename: (req, file, cb) => {
-            const extension = file.mimetype.split("/")[1];
-            cb(null, `${shortid.generate()}.${extension}`);
+            const nameImage = file.originalname.split(".")[0];
+            const extImage = file.originalname.split(".")[1];
+            cb(null, `${nameImage + Date.now()}.${extImage}`);
         }
     }),
-    // Filtar archivos para que solo se suben determinados archivos que cumplan con la extension
-    fileFilter (req, file, cb) {
-        if (file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/webp") {
-            // si el formato es correcto ejectura true
-            cb(null, true);
-        } else {
-            // Si es falso ejectura false
-            cb(new Error("Formato de archivo no valido."), false);
-        }
+    fileFilter(req, file, cb) {
+        !mimetypes.includes(file.mimetype)
+            ? cb(new Error("El formato no es valido"), false)
+            : cb(null, true);
     }
 };
-const upload = multer(multerConfig).single("productImage");
 
-export default upload;
+export const uploadFile = (req, res, next) => {
+    const uploadMiddleware = multer(multerConfig).single("productImage");
+    uploadMiddleware(req, res, function (error) {
+        if (error instanceof multer.MulterError) {
+            return res.status(400).json({ message: "Error al subir la imagen: Tamaño excede el límite permitido." });
+        }
+        if (error) {
+            return res.status(500).json({ error: error.message });
+        }
+        next();
+    });
+};
