@@ -1,41 +1,36 @@
 import { tokenSign } from "../helpers/Token_JWT.js";
 import { Users } from "../models/index.js";
-// CONTROLADOR registrar usuario
+import { handleDuplicateEmailError, handleExceptionErrors } from "../utils/index.js";
 export const registerUser = async (req, res) => {
     const user = new Users(req.body);
     try {
         const data = await user.save();
         res.status(200).json({ message: "Usuario creado correctamente", data });
     } catch (error) {
-        res.status(401).json({ message: "Hubo un error en el registro" });
+        handleDuplicateEmailError(error, res);
     }
 };
 
-// CONTROLADOR autenticar usuario
-export const loginUser = async (req, res, next) => {
-    const { body: { email, password } } = req;
+export const loginUser = async (req, res) => {
+    const { body } = req;
 
     try {
-        const user = await Users.findOne({ email });
-        if (!user) {
-            res.status(401).json({ message: "El correo no existe" });
+        const dbUser = await Users.findOne({ email: body.email });
+        const { _id, fullname, email } = dbUser;
+
+        if (!body.email) {
+            res.status(404).json({ message: "El correo electrónico introducido no existe en nuestros registros" });
             return;
         }
-        if (!user.comparePassword(password, user.password)) {
-            res.status(401).json({ message: "Password incorrecto,intentelo de nuevo" });
+        if (!dbUser.comparePassword(body.password, dbUser.password)) {
+            res.status(401).json({ message: "Contraseña incorrecta. Por favor, inténtelo de nuevo." });
             return;
         }
-        const token = tokenSign(user);
-        res.status(200).json({
-            user: {
-                id: user._id,
-                fullname: user.fullname,
-                email: user.email,
-                token,
-                ok: true
-            }
-        });
+        const token = tokenSign(dbUser);
+        const user = { id: _id, fullname, email, token, ok: true };
+
+        res.status(200).json({ user });
     } catch (error) {
-        res.status(400).json(error);
+        handleExceptionErrors(error, res);
     }
 };
