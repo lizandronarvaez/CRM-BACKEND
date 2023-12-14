@@ -6,16 +6,13 @@ import {
     clientUpdate,
     clientDelete
 } from "../services/clientService.js";
-// Verifiacion de token
 import { isValidToken } from "../middlewares/isValidToken.js";
-// instancia de express.router
 const route = express.Router();
-// rutas
 route
     .post("/", isValidToken, clientCreate)
     .get("/", isValidToken, getAllClients)
     .get("/:_id", isValidToken, getClientBy)
     .put("/:_id", isValidToken, clientUpdate)
-    .delete("/:_id", clientDelete);
+    .delete("/:_id", isValidToken, clientDelete);
 
 export default route;

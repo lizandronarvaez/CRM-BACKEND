@@ -6,3 +6,5 @@ package-lock.json
 dataMongoDB
 .vercel
 .gitignore
+uploads/**
+__test__

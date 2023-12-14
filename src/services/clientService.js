@@ -1,76 +1,59 @@
 import { Clients } from "../models/index.js";
+import { handleDuplicateEmailError, handleExceptionErrors } from "../utils/index.js";
 
-export const clientCreate = async (req, res, next) => {
-    const { body } = req;
-    const client = new Clients(body);
+export const clientCreate = async (req, res) => {
+    const client = new Clients(req.body);
     try {
-        // Almacena el registro
         await client.save();
-        res.status(201).json({ mensaje: "Cliente creado correctamente" });
+        res.status(201).json({ ok: true, message: "¡Cliente creado con éxito!" });
     } catch (error) {
-        if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
-            res.status(400).json({ error: "El correo electrónico ya existe en la base de datos" });
-        } else {
-            res.status(500).json({ error: "Error al crear el cliente" });
-        }
-        next();
+        handleDuplicateEmailError(error, res);
     }
 };
 
-// Mostrar todos los clientes
-export const getAllClients = async (req, res, next) => {
+export const getAllClients = async (req, res) => {
     try {
-        // Busca todos los clientes
         const clients = await Clients.find();
         res.status(200).json(clients);
     } catch (error) {
-        next();
+        handleExceptionErrors(error, res);
     }
 };
 
-// Mostrar un solo cliente
-export const getClientBy = async (req, res, next) => {
+export const getClientBy = async (req, res) => {
     const { _id } = req.params;
     try {
-        // BUsca el cliente en la base de datos
         const client = await Clients.findById(_id);
-        // Comprueba que el cliente existe
         if (!client) {
-            // Si no existe el cliente envia un json
-            res.json({ mensaje: "Ese cliente no existe" });
-            // Sigue al siguente middleware
-            return next();
+            res.status(400).json({ message: "¡No existe el cliente!" });
+            return;
         }
-        // Si el cliente existe, lo muestra
         res.status(200).json(client);
     } catch (error) {
-        res.status(400).json(error.message);
-        next();
+        handleExceptionErrors(error, res);
     }
 };
 
-// Actualizar un cliente
-export const clientUpdate = async (req, res, next) => {
-    // Leer el id para buscar el cliente
+export const clientUpdate = async (req, res) => {
     const { params: { _id }, body } = req;
-
     try {
-        const client = await Clients.findByIdAndUpdate({ _id }, body, { new: true });
-        res.status(200).json(client);
+        await Clients.findByIdAndUpdate({ _id }, body, { new: true });
+        res.status(200).json({ message: "¡Cliente actualizado con éxito!" });
     } catch (error) {
-        res.status(400).json(error.message);
-        next();
+        handleExceptionErrors(error, res);
     }
 };
 
-// Eliminar un cliente
-export const clientDelete = async (req, res, next) => {
+export const clientDelete = async (req, res) => {
     const { _id } = req.params;
-
     try {
-        await Clients.findByIdAndDelete(_id);
-        res.status(204).json({ message: "Cliente eliminado correctamente" });
+        const client = await Clients.findByIdAndDelete(_id);
+        if (!client) {
+            res.status(404).json({ message: "¡No existe el cliente!" });
+            return;
+        }
+        res.status(200).json({ message: "¡Cliente eliminado con éxito!" });
     } catch (error) {
-        res.status(400).json({ message: "Hubo un error" });
+        handleExceptionErrors(error, res);
     }
 };
