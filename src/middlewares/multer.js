@@ -2,8 +2,7 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import multer from "multer";
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const uploads = path.resolve(__dirname, "../../uploads");
-
+const uploads = path.resolve(__dirname, "../uploads");
 const mimetypes = ["image/jpeg", "image/png", "image/webp"];
 const multerConfig = {
     limits: { fileSize: 1000000 },

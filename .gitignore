@@ -1,10 +1,9 @@
 node_modules
-nota.js
 docker-compose.yml
 package-lock.json
 .env
 dataMongoDB
 .vercel
 .gitignore
-uploads/**
+src/uploads/**
 __test__
