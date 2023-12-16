@@ -6,7 +6,7 @@ import {
     routeUsers
 } from "./src/controllers/index.js";
 import cors from "cors";
-import { dirname } from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDOC from "./src/docs/api-docs.js";
@@ -17,7 +17,8 @@ const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { HOST: HOST_ENV, PORT: PORT_ENV } = getEnv();
 
-app.use("/uploads", express.static(__dirname + "/src/uploads"));
+app.use("/upload", express.static(path.join(__dirname + "/src/upload")));
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
