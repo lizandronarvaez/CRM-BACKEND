@@ -2,7 +2,8 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import multer from "multer";
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const uploads = path.resolve(__dirname, "../uploads");
+const uploads = path.join(__dirname, "../upload");
+
 const mimetypes = ["image/jpeg", "image/png", "image/webp"];
 const multerConfig = {
     limits: { fileSize: 1000000 },
@@ -14,7 +15,7 @@ const multerConfig = {
             cb(null, `${nameImage + Date.now()}.${extImage}`);
         }
     }),
-    fileFilter(req, file, cb) {
+    fileFilter (req, file, cb) {
         !mimetypes.includes(file.mimetype)
             ? cb(new Error("El formato no es valido"), false)
             : cb(null, true);

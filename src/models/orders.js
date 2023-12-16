@@ -7,15 +7,17 @@ const ordersSchema = new Schema({
         ref: "Clientes"
     },
     order: [{
-        producto: {
+        product: {
             type: Schema.ObjectId,
             ref: "Productos"
         },
-        cantidad: Number
+        fullname: String,
+        cantidad: Number,
+        price: Number
     }],
     total: {
         type: Number
     }
-});
+}, { timestamps: true });
 
 export default mongoose.model("Pedidos", ordersSchema);
