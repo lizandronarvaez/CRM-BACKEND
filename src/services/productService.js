@@ -6,8 +6,7 @@ export const productsCreate = async (req, res) => {
     const product = new Products(body);
     try {
         if (file) product.productImage = file.filename;
-        const data = await product.save();
-        console.log(data);
+        await product.save();
         res.status(201).json({ image: "Imagen subida con éxito", message: "¡Producto creado con éxito!", ok: true });
     } catch (error) {
         handleExceptionErrors(error, res);
@@ -73,13 +72,14 @@ export const productDelete = async (req, res) => {
 export const getAllsProductQuery = async (req, res) => {
     const { query } = req.params;
     try {
-        const product = await Products.find({ name: new RegExp(query, "i") });
+        const product = await Products.find({ name: new RegExp(query.trim(), "i") });
+        // !! TODO:Solucionar si el producto existe o no no hace falta que verifique si tiene id
         if (!product) {
             res.status(404).json({ message: "¡Producto no encontrado!" });
             return;
         }
         res.status(200).json(product);
     } catch (error) {
-        handleExceptionErrors(error, res);
+        res.status(500).json({ message: "Error interno del servidor" });
     }
 };
